@@ -1,0 +1,127 @@
+/* ── NoteNode — pure text card. No header, no connectors. KRNL0 styling:
+   --node-bg body, --ink text, mono font, warm shadow, rounded radius, spawn
+   spring. Acid glow while dictating. ──────────────────────────────────────── */
+
+.mb-note {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--node-bg);
+  color: var(--ink);
+  border: 1px solid var(--paper-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  padding: 12px 14px;
+  display: flex;
+  animation: mb-panel-in var(--spawn-duration) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Custom resize control indicator in bottom-right corner */
+.mb-note__resize-control {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 16px;
+  height: 16px;
+  cursor: se-resize;
+  display: grid;
+  place-items: center;
+  z-index: 10;
+  color: var(--ink-4);
+  transition: color 0.12s ease;
+
+  /* Reset default React Flow handle styles */
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.mb-note__resize-control::after,
+.mb-note__resize-control::before {
+  display: none !important;
+}
+.mb-note__resize-svg {
+  width: 10px;
+  height: 10px;
+  opacity: 0.6;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+.mb-note:hover .mb-note__resize-svg {
+  opacity: 1;
+}
+.mb-note:hover .mb-note__resize-control {
+  color: var(--ink-3);
+}
+.mb-note__resize-control:hover {
+  color: var(--acid) !important;
+}
+
+.mb-note__textarea {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.mb-note__textarea::placeholder { color: var(--ink-4); }
+
+.mb-note__text-display {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-y: auto;
+  pointer-events: none;
+  user-select: none;
+}
+.mb-note__placeholder {
+  color: var(--ink-4);
+}
+
+/* Recording state — sharp acid border */
+.mb-note--rec {
+  border-color: var(--acid);
+  box-shadow: 0 0 0 1px var(--acid), var(--shadow-2);
+}
+
+/* Badge sits top-right; the dot is perfectly centered. */
+.mb-note__rec-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.mb-note__rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acid);
+}
+/* Idle (selected, not recording) — dim hollow dot inviting a click to dictate. */
+.mb-note__rec-badge--idle .mb-note__rec-dot {
+  background: transparent;
+  border: 2px solid var(--ink-4);
+}
+.mb-note__rec-badge--idle:hover .mb-note__rec-dot {
+  border-color: var(--acid);
+}

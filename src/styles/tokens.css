@@ -1,0 +1,139 @@
+/* ── Mindboard — Design Tokens ────────────────────────────────────────────
+   Adapted from KRNL0 src/renderer/styles/tokens.css (the program source, not
+   the outdated frontendref mockups). Kept: cyber palette, fonts, geometry,
+   shadows, light/dark themes, reduced-motion, generic motion keyframes.
+   Dropped: pomo / habit / task / clock / terminal specific rules.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* ── Light (white) ──────────────────────────────────────────────────── */
+:root {
+  --paper:    #ffffff;
+  --paper-2:  #f4f4f2;
+  --paper-3:  #dcdcd6;
+  --node-bg:  #ffffff;
+
+  --ink:      #1a1612;
+  --ink-2:    #38302a;
+  --ink-3:    #6e6757;
+  --ink-4:    #a39c8d;
+
+  /* Signal — invariant across light/dark */
+  --acid:       #c9f158;
+  --acid-glow:  #d8ff6e;
+  --acid-faint: rgba(201, 241, 88, 0.08);
+  --spine:     #5e7d1d;
+  --spine-hot: #7ea22b;
+  --rust:      #c8553d;
+  --rust-deep: #a83e2a;
+  --plum:      #6b4ea8;
+  --cyan:      #22d3ee;
+  --cyan-glow: #67e8f9;
+  --purple:    #a78bfa;
+
+  /* Grid */
+  --grid:        rgba(20, 20, 20, 0.10);
+  --grid-strong: rgba(20, 20, 20, 0.20);
+
+  /* Geometry */
+  --radius:    6px;
+  --radius-lg: 10px;
+
+  /* Shadow — warm-tinted */
+  --shadow-1:    0 1px 0 rgba(60,40,18,.05), 0 2px 6px rgba(60,40,18,.09);
+  --shadow-2:    0 2px 0 rgba(60,40,18,.06), 0 10px 28px rgba(60,40,18,.14);
+  --shadow-glow: 0 0 0 2px var(--acid);
+
+  /* Typography */
+  --font-mono:  'JetBrains Mono', ui-monospace, monospace;
+  --font-sans:  'JetBrains Mono', 'Geist', ui-monospace, ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+
+  /* Theme-invariant near-black for text on bright accents. */
+  --ink-on-bright: #0a0908;
+
+  /* Animation */
+  --spawn-duration:  150ms;
+  --rec-duration:    1.6s;
+}
+
+/* ── Cyber — dark ───────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --paper:   #131210;
+  --paper-2: #1f1d18;
+  --paper-3: #2f2b24;
+  --node-bg: #1c1a13;
+
+  --ink:   #f4efe2;
+  --ink-2: #ddd6c6;
+  --ink-3: #968d7a;
+  --ink-4: #6a6253;
+
+  --spine:     #7ea22b;
+  --spine-hot: #a8d244;
+  --rust:      #ee8466;
+  --rust-deep: #d05f47;
+
+  --grid:        rgba(240, 235, 221, 0.09);
+  --grid-strong: rgba(240, 235, 221, 0.18);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --spawn-duration: 0ms;
+    --rec-duration:   0ms;
+  }
+}
+[data-motion="reduced"] {
+  --spawn-duration: 0ms;
+  --rec-duration:   0ms;
+}
+
+/* ── Motion keyframes (generic, reused from KRNL0) ──────────────────── */
+
+/* Clean fade entrance. */
+@keyframes mb-panel-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Base reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+strong, b, h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+
+/* ── Minimal scrollbars ─────────────────────────────────────────────── */
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: var(--paper-3);
+  border-radius: 3px;
+  transition: background 0.12s;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--paper-3) transparent;
+}
